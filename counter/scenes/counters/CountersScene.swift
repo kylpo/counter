@@ -12,7 +12,7 @@ import CoreData
 //extension Counter: Identifiable {}
 
 struct CountersScene: View {
-//    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
     
     @FetchRequest(entity: Counter.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Counter.name, ascending: true)])
     var counters: FetchedResults<Counter>
@@ -25,6 +25,9 @@ struct CountersScene: View {
             }.navigationBarTitle("Counters")
             .navigationBarItems(trailing: Button(action: {
                 print("tapped")
+                let newCounter = Counter(context: self.moc)
+                newCounter.name = "testing"
+                try! self.moc.save()
             }) {
                 Image(systemName: "plus.circle")
             })
