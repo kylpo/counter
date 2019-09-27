@@ -1,5 +1,5 @@
 //
-//  TestCounterEntity.swift
+//  TestCounterModel.swift
 //  counterTests
 //
 //  Created by Kyle Poole on 9/27/19.
@@ -7,15 +7,16 @@
 //
 
 import XCTest
-import CoreData
 @testable import counter
 
-final class TestCounterEntity: CoreDataTestCase {
-    var counter: Counter!
+// Note: not using CoreData at all here. Using the Mock, so regular XCTestCase
+
+final class TestCounterModel: XCTestCase {
+    var counter: CounterModelImpl!
 
     override func setUp() {
         super.setUp()
-        counter = Counter(context: container.viewContext)
+        counter = CounterModelImpl(CounterEntityMock())
     }
 
     override func tearDown() {
@@ -24,29 +25,30 @@ final class TestCounterEntity: CoreDataTestCase {
     }
 
     func test_default_values() {
-        XCTAssertNil(counter.name)
-        
-        XCTAssertNil(counter.color)
-        
+        XCTAssertNotNil(counter.name)
+        XCTAssertEqual(counter.name, "")
+
+        XCTAssertNotNil(counter.color)
+        XCTAssertEqual(counter.color, .none)
+
         XCTAssertNotNil(counter.value)
         XCTAssertEqual(counter.value, 0)
     }
     
     func test_mutable_values() {
         // given
-        let name = "name"
-        let color = "color"
-        let value = Int32(10)
-        
+        let name: String = "name"
+        let color: TallyColor = .red
+        let value: Int = 10
+
         // when
         counter.name = name
         counter.color = color
         counter.value = value
-        
+
         // then
         XCTAssertEqual(counter.name, name)
         XCTAssertEqual(counter.color, color)
         XCTAssertEqual(counter.value, value)
     }
-    
 }

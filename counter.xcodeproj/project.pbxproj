@@ -12,6 +12,8 @@
 		423014F9233E51CD00F94B1C /* counter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 424D74E4233E3F680051CAB3 /* counter.xcdatamodeld */; };
 		423014FA233E51CF00F94B1C /* counter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 424D74E4233E3F680051CAB3 /* counter.xcdatamodeld */; };
 		423014FD233E5C7C00F94B1C /* CounterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423014FC233E5C7C00F94B1C /* CounterEntity.swift */; };
+		423014FF233E615100F94B1C /* CounterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423014FE233E615100F94B1C /* CounterModel.swift */; };
+		42301501233E686B00F94B1C /* TestCounterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42301500233E686B00F94B1C /* TestCounterModel.swift */; };
 		424D74E1233E3F680051CAB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D74E0233E3F680051CAB3 /* AppDelegate.swift */; };
 		424D74E3233E3F680051CAB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D74E2233E3F680051CAB3 /* SceneDelegate.swift */; };
 		424D74E6233E3F680051CAB3 /* counter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 424D74E4233E3F680051CAB3 /* counter.xcdatamodeld */; };
@@ -45,6 +47,8 @@
 		423014F5233E4D3E00F94B1C /* TestCounterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCounterEntity.swift; sourceTree = "<group>"; };
 		423014F7233E4D7500F94B1C /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		423014FC233E5C7C00F94B1C /* CounterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterEntity.swift; sourceTree = "<group>"; };
+		423014FE233E615100F94B1C /* CounterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterModel.swift; sourceTree = "<group>"; };
+		42301500233E686B00F94B1C /* TestCounterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCounterModel.swift; sourceTree = "<group>"; };
 		424D74DD233E3F680051CAB3 /* counter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = counter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		424D74E0233E3F680051CAB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		424D74E2233E3F680051CAB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				423014FC233E5C7C00F94B1C /* CounterEntity.swift */,
+				423014FE233E615100F94B1C /* CounterModel.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 				424D74FC233E3F6A0051CAB3 /* Info.plist */,
 				423014F5233E4D3E00F94B1C /* TestCounterEntity.swift */,
 				423014F7233E4D7500F94B1C /* CoreDataTestCase.swift */,
+				42301500233E686B00F94B1C /* TestCounterModel.swift */,
 			);
 			path = counterTests;
 			sourceTree = "<group>";
@@ -322,6 +328,7 @@
 				424D74E3233E3F680051CAB3 /* SceneDelegate.swift in Sources */,
 				423014FD233E5C7C00F94B1C /* CounterEntity.swift in Sources */,
 				424D74E8233E3F680051CAB3 /* ContentView.swift in Sources */,
+				423014FF233E615100F94B1C /* CounterModel.swift in Sources */,
 				424D74E6233E3F680051CAB3 /* counter.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +339,7 @@
 			files = (
 				423014F8233E4D7500F94B1C /* CoreDataTestCase.swift in Sources */,
 				423014F6233E4D3E00F94B1C /* TestCounterEntity.swift in Sources */,
+				42301501233E686B00F94B1C /* TestCounterModel.swift in Sources */,
 				423014F9233E51CD00F94B1C /* counter.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

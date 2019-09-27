@@ -11,7 +11,7 @@ import CoreData
 import Combine
 
 private class VM: ObservableObject {
-    let counter: Counter
+    var counter: CounterModel
     let moc: NSManagedObjectContext
     
     private(set) var name: String
@@ -21,25 +21,17 @@ private class VM: ObservableObject {
         }
         set {
             objectWillChange.send()
-            counter.value = Int32(newValue)
+            counter.value = newValue
         }
     }
     // todo color
     
-    init(counter: Counter, moc: NSManagedObjectContext) {
+    init(counter: CounterModel, moc: NSManagedObjectContext) {
         self.counter = counter
         self.moc = moc
         
-//        self.value = Int(counter.value)
-        
-//        let cancellable = counter.value.publisher
-        
-        if let name = counter.name {
-            self.name = name
-        }
-        else {
-            self.name = ""
-        }
+        // Now, UI code is as easy as below. We're just moving the complexity of before into the Model.
+        self.name = counter.name
     }
     
     func incrementAction() {
@@ -51,7 +43,7 @@ private class VM: ObservableObject {
 private struct CounterCellView: View {
     @ObservedObject private var vm: VM
     
-    init(counter: Counter, moc: NSManagedObjectContext) {
+    init(counter: CounterModel, moc: NSManagedObjectContext) {
         vm = VM(counter: counter, moc: moc)
     }
     
@@ -67,7 +59,7 @@ private struct CounterCellView: View {
 }
 
 struct CounterCell: View {
-    let counter: Counter
+    let counter: CounterModel
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
 //    @ObservedObject private var vm: VM
 //

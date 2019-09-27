@@ -8,29 +8,27 @@
 
 import Foundation
 
+/// Protocol
 public protocol CounterEntity {
     var name: String? { get set }
     var color: String? { get set }
     var value: Int32 { get set }
 }
 
+/// **Implementation** (of protocol)
 extension Counter: CounterEntity {
     // auto-generated from xcdatamodeld:
     
-//    @NSManaged public var color: String?
-//    @NSManaged public var name: String?
-//    @NSManaged public var value: Int32
-    
+    // @NSManaged public var color: String?
+    // @NSManaged public var name: String?
+    // @NSManaged public var value: Int32
 }
 
+/// **Mock** implementation
 #if DEBUG
-
 class CounterEntityMock: CounterEntity {
     var name: String?
-    
     var color: String?
-    
     var value: Int32 = 0
 }
-
 #endif

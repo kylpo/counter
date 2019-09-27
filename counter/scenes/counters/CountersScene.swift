@@ -21,7 +21,7 @@ struct CountersScene: View {
         NavigationView {
         List(counters, id: \.name) { counter in
 //            ForEach(counters) { counter in
-                CounterCell(counter: counter)
+                CounterCell(counter: CounterModelImpl(counter))
             }.navigationBarTitle("Counters")
             .navigationBarItems(trailing: Button(action: {
                 print("tapped")
