@@ -16,6 +16,8 @@
 		424D74F0233E3F6A0051CAB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 424D74EE233E3F6A0051CAB3 /* LaunchScreen.storyboard */; };
 		424D74FB233E3F6A0051CAB3 /* counterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D74FA233E3F6A0051CAB3 /* counterTests.swift */; };
 		424D7506233E3F6A0051CAB3 /* counterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7505233E3F6A0051CAB3 /* counterUITests.swift */; };
+		424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7514233E418A0051CAB3 /* CountersScene.swift */; };
+		424D7518233E42590051CAB3 /* CounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7517233E42590051CAB3 /* CounterCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		424D7501233E3F6A0051CAB3 /* counterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = counterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		424D7505233E3F6A0051CAB3 /* counterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = counterUITests.swift; sourceTree = "<group>"; };
 		424D7507233E3F6A0051CAB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		424D7514233E418A0051CAB3 /* CountersScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersScene.swift; sourceTree = "<group>"; };
+		424D7517233E42590051CAB3 /* CounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +85,7 @@
 		424D74D4233E3F680051CAB3 = {
 			isa = PBXGroup;
 			children = (
-				424D74DF233E3F680051CAB3 /* counter */,
+				424D74DF233E3F680051CAB3 /* app */,
 				424D74F9233E3F6A0051CAB3 /* counterTests */,
 				424D7504233E3F6A0051CAB3 /* counterUITests */,
 				424D74DE233E3F680051CAB3 /* Products */,
@@ -98,9 +102,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		424D74DF233E3F680051CAB3 /* counter */ = {
+		424D74DF233E3F680051CAB3 /* app */ = {
 			isa = PBXGroup;
 			children = (
+				424D7513233E414C0051CAB3 /* scenes */,
 				424D74E0233E3F680051CAB3 /* AppDelegate.swift */,
 				424D74E2233E3F680051CAB3 /* SceneDelegate.swift */,
 				424D74E7233E3F680051CAB3 /* ContentView.swift */,
@@ -110,7 +115,7 @@
 				424D74E4233E3F680051CAB3 /* counter.xcdatamodeld */,
 				424D74EB233E3F6A0051CAB3 /* Preview Content */,
 			);
-			path = counter;
+			path = app;
 			sourceTree = "<group>";
 		};
 		424D74EB233E3F6A0051CAB3 /* Preview Content */ = {
@@ -137,6 +142,31 @@
 				424D7507233E3F6A0051CAB3 /* Info.plist */,
 			);
 			path = counterUITests;
+			sourceTree = "<group>";
+		};
+		424D7513233E414C0051CAB3 /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				424D7519233E4AD50051CAB3 /* counters */,
+			);
+			path = scenes;
+			sourceTree = "<group>";
+		};
+		424D7516233E42480051CAB3 /* _ */ = {
+			isa = PBXGroup;
+			children = (
+				424D7517233E42590051CAB3 /* CounterCell.swift */,
+			);
+			path = _;
+			sourceTree = "<group>";
+		};
+		424D7519233E4AD50051CAB3 /* counters */ = {
+			isa = PBXGroup;
+			children = (
+				424D7516233E42480051CAB3 /* _ */,
+				424D7514233E418A0051CAB3 /* CountersScene.swift */,
+			);
+			path = counters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,7 +300,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				424D7518233E42590051CAB3 /* CounterCell.swift in Sources */,
 				424D74E1233E3F680051CAB3 /* AppDelegate.swift in Sources */,
+				424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */,
 				424D74E3233E3F680051CAB3 /* SceneDelegate.swift in Sources */,
 				424D74E8233E3F680051CAB3 /* ContentView.swift in Sources */,
 				424D74E6233E3F680051CAB3 /* counter.xcdatamodeld in Sources */,
@@ -437,12 +469,11 @@
 		424D750B233E3F6A0051CAB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"counter/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"app/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3KZQ38AH6;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = counter/Info.plist;
+				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,12 +488,11 @@
 		424D750C233E3F6A0051CAB3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"counter/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"app/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3KZQ38AH6;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = counter/Info.plist;
+				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
