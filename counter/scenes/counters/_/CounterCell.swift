@@ -10,17 +10,21 @@ import SwiftUI
 import CoreData
 import Combine
 
-private class VM: ObservableObject {
+private final class VM: ObservableObject {
+    // Note: explicitly defining this is needed if you don't have a @Published to do it for you.
+    // This was a gotcha for me because calling self.objectWillChange.send() did not error, even when I hadn't instantiated it
+    var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
+    
     var counter: CounterModel
     let moc: NSManagedObjectContext
     
     private(set) var name: String
     var value: Int {
         get {
-            return Int(counter.value)
+            counter.value
         }
         set {
-            objectWillChange.send()
+            self.objectWillChange.send()
             counter.value = newValue
         }
     }
@@ -30,7 +34,6 @@ private class VM: ObservableObject {
         self.counter = counter
         self.moc = moc
         
-        // Now, UI code is as easy as below. We're just moving the complexity of before into the Model.
         self.name = counter.name
     }
     
@@ -61,12 +64,7 @@ private struct CounterCellView: View {
 struct CounterCell: View {
     let counter: CounterModel
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
-//    @ObservedObject private var vm: VM
-//
-//    init(counter: Counter) {
-//        vm = VM(counter: counter, moc: self.moc)
-//    }
-    
+
     var body: some View {
         // TODO?: add onChange to moc.save() so it doesn't need to be mocked for Preview?
         CounterCellView(counter: counter, moc: moc)
