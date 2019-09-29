@@ -10,14 +10,15 @@ import SwiftUI
 import CoreData
 import Combine
 
-private final class VM: ObservableObject {
+// View Machine
+final class CounterCellVM: ObservableObject {
     // Note: explicitly defining this is needed if you don't have a @Published to do it for you.
     // This was a gotcha for me because calling self.objectWillChange.send() did not error, even when I hadn't instantiated it
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
     
-    var counter: CounterModel
-    let moc: NSManagedObjectContext
-    
+    private var counter: CounterModel
+    let onUpdate: () -> Void
+
     private(set) var name: String
     var value: Int {
         get {
@@ -30,24 +31,28 @@ private final class VM: ObservableObject {
     }
     // todo color
     
-    init(counter: CounterModel, moc: NSManagedObjectContext) {
+    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
         self.counter = counter
-        self.moc = moc
+        self.onUpdate = onUpdate
         
         self.name = counter.name
     }
     
     func incrementAction() {
         value += 1
-        try! moc.save()
+        onUpdate()
+//        try! moc.save()
     }
 }
 
+// Presentational View
 private struct CounterCellView: View {
-    @ObservedObject private var vm: VM
+    @ObservedObject private var vm: CounterCellVM
+    let onUpdate: () -> Void
     
-    init(counter: CounterModel, moc: NSManagedObjectContext) {
-        vm = VM(counter: counter, moc: moc)
+    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
+        self.onUpdate = onUpdate
+        vm = CounterCellVM(counter: counter, onUpdate: onUpdate)
     }
     
     var body: some View {
@@ -61,13 +66,19 @@ private struct CounterCellView: View {
     }
 }
 
+
+// Connected View (controller/container)
 struct CounterCell: View {
     let counter: CounterModel
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    
+    func handleUpdate() {
+        try! moc.save()
+    }
 
     var body: some View {
         // TODO?: add onChange to moc.save() so it doesn't need to be mocked for Preview?
-        CounterCellView(counter: counter, moc: moc)
+        CounterCellView(counter: counter, onUpdate: handleUpdate)
     }
 }
 

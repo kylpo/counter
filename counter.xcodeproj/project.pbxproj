@@ -24,6 +24,7 @@
 		424D7506233E3F6A0051CAB3 /* counterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7505233E3F6A0051CAB3 /* counterUITests.swift */; };
 		424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7514233E418A0051CAB3 /* CountersScene.swift */; };
 		424D7518233E42590051CAB3 /* CounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7517233E42590051CAB3 /* CounterCell.swift */; };
+		42B196A123400F0D00BEC46C /* VMTestCounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		424D7507233E3F6A0051CAB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		424D7514233E418A0051CAB3 /* CountersScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersScene.swift; sourceTree = "<group>"; };
 		424D7517233E42590051CAB3 /* CounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCell.swift; sourceTree = "<group>"; };
+		42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMTestCounterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,10 +151,11 @@
 		424D74F9233E3F6A0051CAB3 /* counterTests */ = {
 			isa = PBXGroup;
 			children = (
+				42B196A523412B4A00BEC46C /* Util */,
+				42B196A223412B1100BEC46C /* EntityTests */,
+				42B196A323412B1E00BEC46C /* ModelTests */,
+				42B196A423412B2500BEC46C /* VMTests */,
 				424D74FC233E3F6A0051CAB3 /* Info.plist */,
-				423014F5233E4D3E00F94B1C /* TestCounterEntity.swift */,
-				423014F7233E4D7500F94B1C /* CoreDataTestCase.swift */,
-				42301500233E686B00F94B1C /* TestCounterModel.swift */,
 			);
 			path = counterTests;
 			sourceTree = "<group>";
@@ -189,6 +192,38 @@
 				424D7514233E418A0051CAB3 /* CountersScene.swift */,
 			);
 			path = counters;
+			sourceTree = "<group>";
+		};
+		42B196A223412B1100BEC46C /* EntityTests */ = {
+			isa = PBXGroup;
+			children = (
+				423014F5233E4D3E00F94B1C /* TestCounterEntity.swift */,
+			);
+			name = EntityTests;
+			sourceTree = "<group>";
+		};
+		42B196A323412B1E00BEC46C /* ModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				42301500233E686B00F94B1C /* TestCounterModel.swift */,
+			);
+			path = ModelTests;
+			sourceTree = "<group>";
+		};
+		42B196A423412B2500BEC46C /* VMTests */ = {
+			isa = PBXGroup;
+			children = (
+				42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */,
+			);
+			name = VMTests;
+			sourceTree = "<group>";
+		};
+		42B196A523412B4A00BEC46C /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				423014F7233E4D7500F94B1C /* CoreDataTestCase.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +376,7 @@
 				423014F6233E4D3E00F94B1C /* TestCounterEntity.swift in Sources */,
 				42301501233E686B00F94B1C /* TestCounterModel.swift in Sources */,
 				423014F9233E51CD00F94B1C /* counter.xcdatamodeld in Sources */,
+				42B196A123400F0D00BEC46C /* VMTestCounterCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

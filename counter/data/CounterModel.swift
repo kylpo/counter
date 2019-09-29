@@ -18,7 +18,7 @@ public protocol CounterModel {
     var color: TallyColor { get set }
     var value: Int { get set }
     
-    init(_ entity: CounterEntity)
+//    init(_ entity: CounterEntity)
 }
 
 /// **Implementation** (of protocol)
@@ -54,6 +54,8 @@ final class CounterModelImpl: CounterModel {
     init(_ entity: CounterEntity) {
         self.entity = entity
         
+        
+        
         // Not as easy as commented code below. This is why a Model is necessary! Put this logic here, not in your UI code!
 //        self.name = entity.name
 //        self.color = entity.color
@@ -79,6 +81,6 @@ final class CounterModelMock: CounterModel {
     var color: TallyColor = .none
     var value: Int = 0
     
-    init(_ entity: CounterEntity) {}
+//    init(_ entity: CounterEntity) {}
 }
 #endif
