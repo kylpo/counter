@@ -7,13 +7,16 @@
 //
 
 import XCTest
+import Combine
 @testable import counter
 
 // Note: not using CoreData at all here. Using the Mock, so regular XCTestCase
 
 final class TestCounterModel: XCTestCase {
+    var cancellables: [AnyCancellable] = []
+
     func test_default_values() {
-        let counter: CounterModel = CounterModelImpl(CounterEntityMock())
+        let counter: CounterModelImpl = CounterModelImpl(CounterEntityMock())
 
         XCTAssertNotNil(counter.name)
         XCTAssertEqual(counter.name, "")
@@ -27,7 +30,7 @@ final class TestCounterModel: XCTestCase {
     
     func test_mutable_values() {
         // given
-        var counter: CounterModel = CounterModelImpl(CounterEntityMock())
+        var counter: CounterModelImpl = CounterModelImpl(CounterEntityMock())
         let name: String = "name"
         let color: TallyColor = .red
         let value: Int = 10
@@ -46,7 +49,7 @@ final class TestCounterModel: XCTestCase {
     func test_it_updates_entity() {
         // given
         let entity = CounterEntityMock()
-        var counter: CounterModel = CounterModelImpl(entity)
+        var counter: CounterModelImpl = CounterModelImpl(entity)
 
         // when
         counter.name = "name"
@@ -62,7 +65,7 @@ final class TestCounterModel: XCTestCase {
     func test_it_observes_entity_updates() {
         // given
         let entity = CounterEntityMock()
-        let counter: CounterModel = CounterModelImpl(entity)
+        let counter: CounterModelImpl = CounterModelImpl(entity)
 
         // when
         entity.name = "name"
@@ -72,5 +75,42 @@ final class TestCounterModel: XCTestCase {
         // then
         XCTAssertEqual(counter.name, "name")
         XCTAssertEqual(counter.color, .red)
-        XCTAssertEqual(counter.value, 10)    }
+        XCTAssertEqual(counter.value, 10)
+    }
+    
+    func test_value_change_notifies_subscribers() {
+        // given
+        let entity = CounterEntityMock()
+        let counter: CounterModelImpl = CounterModelImpl(entity)
+        var receivedUpdate = false
+        
+        counter.objectWillChange.sink(receiveValue: {
+            receivedUpdate = true
+        }).store(in: &cancellables)
+        
+        // when
+        counter.value = 10
+        
+        // then
+        XCTAssertTrue(receivedUpdate)
+    }
+    
+    // ERRORS!!!
+    // TODO: fix in next commit
+    func test_entity_change_notifies_subscribers() {
+        // given
+        let entity = CounterEntityMock()
+        let counter: CounterModelImpl = CounterModelImpl(entity)
+        var receivedUpdate = false
+        
+        counter.objectWillChange.sink(receiveValue: {
+            receivedUpdate = true
+        }).store(in: &cancellables)
+        
+        // when
+        entity.value = 10
+        
+        // then
+        XCTAssertTrue(receivedUpdate)
+    }
 }

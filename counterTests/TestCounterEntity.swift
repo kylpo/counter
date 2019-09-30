@@ -8,10 +8,12 @@
 
 import XCTest
 import CoreData
+import Combine
 @testable import counter
 
 final class TestCounterEntity: CoreDataTestCase {
     var counter: Counter!
+    var cancellables: [AnyCancellable] = []
 
     override func setUp() {
         super.setUp()
@@ -49,4 +51,19 @@ final class TestCounterEntity: CoreDataTestCase {
         XCTAssertEqual(counter.value, value)
     }
     
+    // BELOW ERRORS: Does Core Data not actually objectWillChange.send() ?
+//    func test_value_change_notifies_subscribers() {
+//        // given
+//        var receivedUpdate = false
+//        
+//        counter.objectWillChange.sink(receiveValue: {
+//            receivedUpdate = true
+//        }).store(in: &cancellables)
+//        
+//        // when
+//        counter.value = 10
+//        
+//        // then
+//        XCTAssertTrue(receivedUpdate)
+//    }
 }

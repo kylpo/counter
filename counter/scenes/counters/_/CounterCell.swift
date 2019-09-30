@@ -10,17 +10,25 @@ import SwiftUI
 import CoreData
 import Combine
 
+
 // View Machine
 final class CounterCellVM: ObservableObject {
     // Note: explicitly defining this is needed if you don't have a @Published to do it for you.
     // This was a gotcha for me because calling self.objectWillChange.send() did not error, even when I hadn't instantiated it
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
     
+//    @Published
     private var counter: CounterModel
+    private var cancellable: AnyCancellable?
+
+//    private var cancellables: [AnyCancellable] = []
+
     let onUpdate: () -> Void
 
     private(set) var name: String
-    var value: Int {
+//    @Published var value: Int
+    var value: Int
+        {
         get {
             counter.value
         }
@@ -36,23 +44,36 @@ final class CounterCellVM: ObservableObject {
         self.onUpdate = onUpdate
         
         self.name = counter.name
+        
+        cancellable = counter.objectWillChange.sink(receiveValue: {
+            self.objectWillChange.send()
+        })
+//        self.value = counter.value
+        
+        
+//        self.value = CurrentValueSubject<Int, Never>(0)
+        
+//        counter.value
+        
+//        counter.name.publisher.assign(to: .name, on: self)
     }
     
     func incrementAction() {
         value += 1
         onUpdate()
-//        try! moc.save()
     }
 }
 
+private typealias VM = CounterCellVM
+
 // Presentational View
 private struct CounterCellView: View {
-    @ObservedObject private var vm: CounterCellVM
+    @ObservedObject private var vm: VM
     let onUpdate: () -> Void
     
     init(counter: CounterModel, onUpdate: @escaping () -> Void) {
         self.onUpdate = onUpdate
-        vm = CounterCellVM(counter: counter, onUpdate: onUpdate)
+        vm = VM(counter: counter, onUpdate: onUpdate)
     }
     
     var body: some View {
@@ -66,9 +87,10 @@ private struct CounterCellView: View {
     }
 }
 
+private typealias PresentationalView = CounterCellView
 
 // Connected View (controller/container)
-struct CounterCell: View {
+struct CounterCellContainer: View {
     let counter: CounterModel
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
     
@@ -77,10 +99,11 @@ struct CounterCell: View {
     }
 
     var body: some View {
-        // TODO?: add onChange to moc.save() so it doesn't need to be mocked for Preview?
-        CounterCellView(counter: counter, onUpdate: handleUpdate)
+        PresentationalView(counter: counter, onUpdate: handleUpdate)
     }
 }
+
+typealias CounterCell = CounterCellContainer
 
 //struct CounterCell_Previews: PreviewProvider {
 //    let counter = Counter()
