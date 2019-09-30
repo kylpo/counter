@@ -18,6 +18,7 @@ final class CounterDetailVM: ObservableObject {
 //    let onUpdate: () -> Void
     let onExit: () -> Void
     let manager: CounterManager
+    let tickManager: TickManager
     let context: Context
 
     fileprivate var counter: CounterModel
@@ -29,19 +30,21 @@ final class CounterDetailVM: ObservableObject {
     var value: Int
         {
         get {
-            counter.value
+            counter.totalCount
         }
         set {
             self.objectWillChange.send()
-            counter.value = newValue
+//            counter.value = newValue
+            counter.addToTicks(tickManager.create(0))
         }
     }
     // todo color
     
-    init(counter: CounterModel, manager: CounterManager, context: Context, onExit: @escaping () -> Void) {
+    init(counter: CounterModel, manager: CounterManager, tickManager: TickManager, context: Context, onExit: @escaping () -> Void) {
 //    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
         self.counter = counter
         self.manager = manager
+        self.tickManager = tickManager
         self.context = context
         self.onExit = onExit
         
@@ -73,11 +76,11 @@ private struct CounterDetailView: View {
 //    let manager: CounterManager
 //    let context: Context
     
-    init(counter: CounterModel, manager: CounterManager, context: Context, onExit: @escaping () -> Void) {
+    init(counter: CounterModel, manager: CounterManager ,tickManager: TickManager, context: Context, onExit: @escaping () -> Void) {
 //        self.onExit = onExit
 //        self.manager = manager
 //        self.context = context
-        vm = CounterDetailVM(counter: counter, manager: manager, context: context, onExit: onExit)
+        vm = CounterDetailVM(counter: counter, manager: manager, tickManager: tickManager, context: context, onExit: onExit)
     }
     
     var body: some View {
@@ -112,7 +115,7 @@ struct CounterDetailContainer: View {
     }
 
     var body: some View {
-        CounterDetailView(counter: counter, manager: moc as CounterManager, context: moc as Context, onExit: handleExit)
+        CounterDetailView(counter: counter, manager: moc.counterManager, tickManager: moc.tickManager, context: moc as Context, onExit: handleExit)
     }
 }
 

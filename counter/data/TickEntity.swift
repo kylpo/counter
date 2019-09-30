@@ -25,38 +25,7 @@ extension Tick: TickEntity {}
 /// **Mock** implementation
 #if DEBUG
 class TickEntityMock: TickEntity, ObservableObject {
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(ObjectIdentifier(self))
-//      }
-//
-//    static func == (lhs: TickEntityMock, rhs: TickEntityMock) -> Bool {
-//        return lhs.timestamp.hashValue == rhs.timestamp.hashValue
-
-//        return lhs.hashValue == rhs.hashValue
-//    }
-    
-//    static func < (lhs: TickEntityMock, rhs: TickEntityMock) -> Bool {
-//        return lhs.timestamp.hashValue >= rhs.timestamp.hashValue
-//    }
-    
-
     @Published var timestamp: Date? = nil
     @Published var count: Int32 = 0
 }
-//
-//class TickMock: Tick {
-//
-////    init() {
-////        super.init()
-//        
-////        self.timestamp = Date()
-////    }
-//    
-////    var mockTimestamp: Date? = nil
-////    override var timestamp: Date? {
-////        get { mockTimestamp }
-////        set {}
-////    }
-////    override var count: Int32 = 0
-//}
 #endif

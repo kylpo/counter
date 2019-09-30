@@ -54,9 +54,6 @@ struct CountersScene: View {
                     Button(action: {
                         _ = self.moc.create(name: "testing", color: .none, value: 0)
                         self.moc.saveChanges()
-//                    let newCounter = Counter(context: self.moc)
-//                    newCounter.name = "testing"
-//                    try! self.moc.save()
                     }) {
                         Image(systemName: "plus.circle")
                     }

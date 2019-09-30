@@ -28,6 +28,7 @@
 		429900A52341CF94009FADDD /* TickEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A42341CF94009FADDD /* TickEntity.swift */; };
 		429900A723422C61009FADDD /* CounterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A623422C61009FADDD /* CounterManager.swift */; };
 		429900A9234230D1009FADDD /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A8234230D1009FADDD /* Context.swift */; };
+		429900AB234238D6009FADDD /* TickManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900AA234238D6009FADDD /* TickManager.swift */; };
 		42B196A123400F0D00BEC46C /* VMTestCounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		429900A42341CF94009FADDD /* TickEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickEntity.swift; sourceTree = "<group>"; };
 		429900A623422C61009FADDD /* CounterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterManager.swift; sourceTree = "<group>"; };
 		429900A8234230D1009FADDD /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		429900AA234238D6009FADDD /* TickManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickManager.swift; sourceTree = "<group>"; };
 		42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMTestCounterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 				429900A42341CF94009FADDD /* TickEntity.swift */,
 				423014FE233E615100F94B1C /* CounterModel.swift */,
 				429900A623422C61009FADDD /* CounterManager.swift */,
+				429900AA234238D6009FADDD /* TickManager.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				4299009F2341BD72009FADDD /* CounterDetail.swift in Sources */,
 				429900A723422C61009FADDD /* CounterManager.swift in Sources */,
 				424D74E3233E3F680051CAB3 /* SceneDelegate.swift in Sources */,
+				429900AB234238D6009FADDD /* TickManager.swift in Sources */,
 				423014FD233E5C7C00F94B1C /* CounterEntity.swift in Sources */,
 				424D74E8233E3F680051CAB3 /* ContentView.swift in Sources */,
 				429900A9234230D1009FADDD /* Context.swift in Sources */,
