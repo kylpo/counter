@@ -15,7 +15,7 @@ public enum TallyColor: String, CaseIterable {
 }
 
 /// Protocol
-public protocol CounterModel: AnyObject {
+public protocol CounterModel {
     var name: String { get set }
     var color: TallyColor { get set }
     var value: Int { get set }
@@ -27,9 +27,8 @@ public protocol CounterModel: AnyObject {
 final class CounterModelImpl: CounterModel, ObservableObject {
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
     
-    //    @Published
-        private var entity: CounterEntity
-        private var cancellable: AnyCancellable?
+    private var entity: CounterEntity
+    private var cancellable: AnyCancellable?
     
     var name: String {
         get {

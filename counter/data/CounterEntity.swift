@@ -11,7 +11,6 @@ import CoreData
 import Combine
 
 /// Protocol
-
 //@objc
 public protocol CounterEntity {
     var name: String? { get set }
