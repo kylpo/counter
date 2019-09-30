@@ -17,9 +17,29 @@ public protocol CounterEntity {
     var name: String? { get set }
     var color: String? { get set }
     var value: Int32 { get set }
+    var ticks: NSSet? { get set }
     
     var objectWillChange: ObservableObjectPublisher { get }
 }
+
+
+//// MARK: Generated accessors for ticks
+//extension Counter {
+//
+//    @objc(addTicksObject:)
+//    @NSManaged public func addToTicks(_ value: Tick)
+//
+//    @objc(removeTicksObject:)
+//    @NSManaged public func removeFromTicks(_ value: Tick)
+//
+//    @objc(addTicks:)
+//    @NSManaged public func addToTicks(_ values: NSSet)
+//
+//    @objc(removeTicks:)
+//    @NSManaged public func removeFromTicks(_ values: NSSet)
+//
+//}
+
 
 /// **Implementation** (of protocol)
 extension Counter: CounterEntity {
@@ -44,5 +64,6 @@ class CounterEntityMock: CounterEntity, ObservableObject {
     @Published var name: String? = nil
     @Published var color: String? = nil
     @Published var value: Int32 = 0
+    @Published var ticks: NSSet? = nil
 }
 #endif

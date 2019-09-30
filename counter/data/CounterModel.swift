@@ -19,6 +19,7 @@ public protocol CounterModel {
     var name: String { get set }
     var color: TallyColor { get set }
     var value: Int { get set }
+//    var ticks: Set<Tick> { get set }
     
     var objectWillChange: ObservableObjectPublisher { get }
 }

@@ -27,8 +27,10 @@ final class TestCounterEntity: CoreDataTestCase {
 
     func test_default_values() {
         XCTAssertNil(counter.name)
-        
         XCTAssertNil(counter.color)
+        
+        let ticks = try! XCTUnwrap(counter.ticks)
+        XCTAssertEqual(ticks.count, 0)
         
         XCTAssertNotNil(counter.value)
         XCTAssertEqual(counter.value, 0)
@@ -51,18 +53,29 @@ final class TestCounterEntity: CoreDataTestCase {
         XCTAssertEqual(counter.value, value)
     }
     
+    func test_it_can_add_ticks() {
+        let tick = Tick(context: container.viewContext)
+        
+        let ticksBefore = try! XCTUnwrap(counter.ticks).count
+        
+        counter.addToTicks(tick)
+        
+        let ticksAfter = try! XCTUnwrap(counter.ticks).count
+        XCTAssertNotEqual(ticksBefore, ticksAfter)
+    }
+    
     // BELOW ERRORS: Does Core Data not actually objectWillChange.send() ?
 //    func test_value_change_notifies_subscribers() {
 //        // given
 //        var receivedUpdate = false
-//        
+//
 //        counter.objectWillChange.sink(receiveValue: {
 //            receivedUpdate = true
 //        }).store(in: &cancellables)
-//        
+//
 //        // when
 //        counter.value = 10
-//        
+//
 //        // then
 //        XCTAssertTrue(receivedUpdate)
 //    }
