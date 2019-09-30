@@ -48,14 +48,6 @@ final class CounterCellVM: ObservableObject {
         cancellable = counter.objectWillChange.sink(receiveValue: {
             self.objectWillChange.send()
         })
-//        self.value = counter.value
-        
-        
-//        self.value = CurrentValueSubject<Int, Never>(0)
-        
-//        counter.value
-        
-//        counter.name.publisher.assign(to: .name, on: self)
     }
     
     func incrementAction() {
