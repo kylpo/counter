@@ -10,7 +10,7 @@
     <entity name="Tick" representedClassName="Tick" syncable="YES" codeGenerationType="class">
         <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="counter" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Counter" inverseName="ticks" inverseEntity="Counter"/>
+        <relationship name="counter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Counter" inverseName="ticks" inverseEntity="Counter"/>
     </entity>
     <elements>
         <element name="Counter" positionX="-63" positionY="-18" width="128" height="118"/>

@@ -19,6 +19,9 @@ public protocol CounterEntity {
     var value: Int32 { get set }
     var ticks: NSSet? { get set }
     
+//    func addToTicks(_ value: Tick)
+    func addToTicks(_ values: NSSet)
+    
     var objectWillChange: ObservableObjectPublisher { get }
 }
 
@@ -58,12 +61,38 @@ extension Counter: CounterEntity {
 
 /// **Mock** implementation
 #if DEBUG
-class CounterEntityMock: CounterEntity, ObservableObject {
+class CounterEntityMock: CounterEntity, ObservableObject {    
     var id: UUID? = UUID()
     
     @Published var name: String? = nil
     @Published var color: String? = nil
     @Published var value: Int32 = 0
     @Published var ticks: NSSet? = nil
+    
+//    func addToTicks(_ value: Tick) {
+//        if let ticks = self.ticks {
+//            ticks.adding(value)
+//        } else {
+//            ticks = NSSet(object: value)
+//        }
+//    }
+    func addToTicks(_ values: NSSet) {
+        if let ticks = self.ticks {
+            ticks.adding(values)
+        } else {
+            ticks = values
+        }
+    }
 }
+
+//class CounterMock: Counter {
+//    init() {
+//        super.init()
+//
+//        self.name = nil
+//        self.color = nil
+//        self.value = 0
+//
+//    }
+//}
 #endif

@@ -25,6 +25,9 @@
 		424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7514233E418A0051CAB3 /* CountersScene.swift */; };
 		424D7518233E42590051CAB3 /* CounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7517233E42590051CAB3 /* CounterCell.swift */; };
 		4299009F2341BD72009FADDD /* CounterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4299009E2341BD72009FADDD /* CounterDetail.swift */; };
+		429900A52341CF94009FADDD /* TickEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A42341CF94009FADDD /* TickEntity.swift */; };
+		429900A723422C61009FADDD /* CounterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A623422C61009FADDD /* CounterManager.swift */; };
+		429900A9234230D1009FADDD /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A8234230D1009FADDD /* Context.swift */; };
 		42B196A123400F0D00BEC46C /* VMTestCounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +71,9 @@
 		424D7514233E418A0051CAB3 /* CountersScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersScene.swift; sourceTree = "<group>"; };
 		424D7517233E42590051CAB3 /* CounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCell.swift; sourceTree = "<group>"; };
 		4299009E2341BD72009FADDD /* CounterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterDetail.swift; sourceTree = "<group>"; };
+		429900A42341CF94009FADDD /* TickEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickEntity.swift; sourceTree = "<group>"; };
+		429900A623422C61009FADDD /* CounterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterManager.swift; sourceTree = "<group>"; };
+		429900A8234230D1009FADDD /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMTestCounterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,7 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				423014FC233E5C7C00F94B1C /* CounterEntity.swift */,
+				429900A42341CF94009FADDD /* TickEntity.swift */,
 				423014FE233E615100F94B1C /* CounterModel.swift */,
+				429900A623422C61009FADDD /* CounterManager.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -138,6 +146,7 @@
 				424D74F1233E3F6A0051CAB3 /* Info.plist */,
 				424D74E4233E3F680051CAB3 /* counter.xcdatamodeld */,
 				424D74EB233E3F6A0051CAB3 /* Preview Content */,
+				429900A8234230D1009FADDD /* Context.swift */,
 			);
 			path = counter;
 			sourceTree = "<group>";
@@ -369,12 +378,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				424D7518233E42590051CAB3 /* CounterCell.swift in Sources */,
+				429900A52341CF94009FADDD /* TickEntity.swift in Sources */,
 				424D74E1233E3F680051CAB3 /* AppDelegate.swift in Sources */,
 				424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */,
 				4299009F2341BD72009FADDD /* CounterDetail.swift in Sources */,
+				429900A723422C61009FADDD /* CounterManager.swift in Sources */,
 				424D74E3233E3F680051CAB3 /* SceneDelegate.swift in Sources */,
 				423014FD233E5C7C00F94B1C /* CounterEntity.swift in Sources */,
 				424D74E8233E3F680051CAB3 /* ContentView.swift in Sources */,
+				429900A9234230D1009FADDD /* Context.swift in Sources */,
 				423014FF233E615100F94B1C /* CounterModel.swift in Sources */,
 				424D74E6233E3F680051CAB3 /* counter.xcdatamodeld in Sources */,
 			);

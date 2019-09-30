@@ -26,13 +26,15 @@ final class TestCounterModel: XCTestCase {
 
         XCTAssertNotNil(counter.value)
         XCTAssertEqual(counter.value, 0)
+        
+        XCTAssertEqual(counter.totalCount, 0)
     }
     
     func test_mutable_values() {
         // given
-        var counter: CounterModelImpl = CounterModelImpl(CounterEntityMock())
+        let counter: CounterModelImpl = CounterModelImpl(CounterEntityMock())
         let name: String = "name"
-        let color: TallyColor = .red
+        let color: CounterColor = .red
         let value: Int = 10
 
         // when
@@ -49,7 +51,7 @@ final class TestCounterModel: XCTestCase {
     func test_it_updates_entity() {
         // given
         let entity = CounterEntityMock()
-        var counter: CounterModelImpl = CounterModelImpl(entity)
+        let counter: CounterModelImpl = CounterModelImpl(entity)
 
         // when
         counter.name = "name"
@@ -95,8 +97,6 @@ final class TestCounterModel: XCTestCase {
         XCTAssertTrue(receivedUpdate)
     }
     
-    // ERRORS!!!
-    // TODO: fix in next commit
     func test_entity_change_notifies_subscribers() {
         // given
         let entity = CounterEntityMock()
@@ -112,5 +112,29 @@ final class TestCounterModel: XCTestCase {
         
         // then
         XCTAssertTrue(receivedUpdate)
+    }
+    
+    func test_it_adds_ticks() {
+        let entity = CounterEntityMock()
+        let counter: CounterModelImpl = CounterModelImpl(entity)
+        
+        let before = counter.ticks.count
+        
+        counter.addToTicks(TickEntityMock())
+        
+        let after = counter.ticks.count
+        XCTAssertNotEqual(before, after)
+    }
+    
+    func test_it_has_count_of_ticks() {
+        let entity = CounterEntityMock()
+        let counter: CounterModelImpl = CounterModelImpl(entity)
+        
+        let before = counter.totalCount
+        
+        counter.addToTicks(TickEntityMock())
+        
+        let after = counter.totalCount
+        XCTAssertNotEqual(before, after)
     }
 }

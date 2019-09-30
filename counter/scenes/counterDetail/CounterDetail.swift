@@ -15,7 +15,10 @@ import Combine
 
 // View Machine
 final class CounterDetailVM: ObservableObject {
-    let onUpdate: () -> Void
+//    let onUpdate: () -> Void
+    let onExit: () -> Void
+    let manager: CounterManager
+    let context: Context
 
     fileprivate var counter: CounterModel
     private var cancellable: AnyCancellable?
@@ -35,9 +38,12 @@ final class CounterDetailVM: ObservableObject {
     }
     // todo color
     
-    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
+    init(counter: CounterModel, manager: CounterManager, context: Context, onExit: @escaping () -> Void) {
+//    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
         self.counter = counter
-        self.onUpdate = onUpdate
+        self.manager = manager
+        self.context = context
+        self.onExit = onExit
         
         self.name = counter.name
         
@@ -49,22 +55,29 @@ final class CounterDetailVM: ObservableObject {
     
     func incrementAction() {
         value += 1
-        onUpdate()
+        context.saveChanges()
+//        onUpdate()
     }
 
-//    func deleteAction() {
-//        
-//    }
+    func deleteAction() {
+        manager.delete(counter)
+        context.saveChangesAndWait()
+        onExit()
+    }
 }
 
 // Presentational View
 private struct CounterDetailView: View {
     @ObservedObject private var vm: CounterDetailVM
-    let onUpdate: () -> Void
+//    let onExit: () -> Void
+//    let manager: CounterManager
+//    let context: Context
     
-    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
-        self.onUpdate = onUpdate
-        vm = CounterDetailVM(counter: counter, onUpdate: onUpdate)
+    init(counter: CounterModel, manager: CounterManager, context: Context, onExit: @escaping () -> Void) {
+//        self.onExit = onExit
+//        self.manager = manager
+//        self.context = context
+        vm = CounterDetailVM(counter: counter, manager: manager, context: context, onExit: onExit)
     }
     
     var body: some View {
@@ -80,9 +93,9 @@ private struct CounterDetailView: View {
             //            Button(action: editAction) {
             //                Text("Edit")
             //            }
-//            Button(action: vm.deleteAction) {
-//                            Text("Delete")
-//                        }
+            Button(action: vm.deleteAction) {
+                            Text("Delete")
+                        }
         }
     }
 }
@@ -91,16 +104,15 @@ private struct CounterDetailView: View {
 struct CounterDetailContainer: View {
     let counter: CounterModel
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
-    
-    func handleUpdate() {
-        try! moc.save()
+
+    func handleExit() {
+        self.presentationMode.wrappedValue.dismiss()
     }
 
-
     var body: some View {
-        CounterDetailView(counter: counter, onUpdate: handleUpdate)
+        CounterDetailView(counter: counter, manager: moc as CounterManager, context: moc as Context, onExit: handleExit)
     }
 }
 
