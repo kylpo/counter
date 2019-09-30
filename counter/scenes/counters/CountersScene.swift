@@ -42,7 +42,7 @@ struct CountersScene: View {
     
     var body: some View {
         NavigationView {
-        List(counters, id: \.name) { counter in
+        List(counters, id: \.id) { counter in
 //            ForEach(counters) { counter in
                 CounterCell(counter: CounterModelImpl(counter))
         }.navigationBarTitle("Counters")

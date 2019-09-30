@@ -13,6 +13,7 @@ import Combine
 /// Protocol
 //@objc
 public protocol CounterEntity {
+    var id: UUID? { get set }
     var name: String? { get set }
     var color: String? { get set }
     var value: Int32 { get set }
@@ -27,11 +28,19 @@ extension Counter: CounterEntity {
     // @NSManaged public var color: String?
     // @NSManaged public var name: String?
     // @NSManaged public var value: Int32
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        
+        self.id = UUID()
+    }
 }
 
 /// **Mock** implementation
 #if DEBUG
 class CounterEntityMock: CounterEntity, ObservableObject {
+    var id: UUID? = UUID()
+    
     @Published var name: String? = nil
     @Published var color: String? = nil
     @Published var value: Int32 = 0
