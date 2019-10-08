@@ -24,7 +24,7 @@ import CoreData
 protocol CounterManager {
 //    func fetch(_ model: CounterModel) -> CounterModel?
 //    func fetchAll() -> [CounterModel]
-    func create(name: String, color: CounterColor, value: Int) -> CounterModel
+    func create(name: String, color: CounterColor) -> CounterModel
     func delete(_ model: CounterModel)
 }
 
@@ -52,12 +52,11 @@ extension NSManagedObjectContext : CounterManager {
 //        let results = try? self.fetch(request)
 //        return results ?? [ManagedTally]()
 //    }
-    func create(name: String, color: CounterColor, value: Int) -> CounterModel {
+    func create(name: String, color: CounterColor) -> CounterModel {
         let it = CounterModelImpl(Counter(context: self))
         
         it.name = name
         it.color = color
-        it.value = value
         
         return it
     }
@@ -72,3 +71,22 @@ extension NSManagedObjectContext : CounterManager {
         }
     }
 }
+
+/// **Mock** implementation
+#if DEBUG
+final class CounterManagerMock: CounterManager {
+    var hasCreated: Bool = false
+    var hasDeleted: Bool = false
+    
+    func create(name: String, color: CounterColor) -> CounterModel {
+        hasCreated = true
+        let it = CounterModelMock()
+//        it.name = name
+//        it.color = color
+        return it
+    }
+    func delete(_ model: CounterModel) {
+        hasDeleted = true
+    }
+}
+#endif

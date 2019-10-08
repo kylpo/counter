@@ -17,7 +17,8 @@ class CoreDataTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        container = NSPersistentContainer(name: "counter", managedObjectModel: self.managedObjectModel)
+        // NOTE: This will fail if your .xcdatamodeld is not a member of your Tests target!!!
+        container = NSPersistentContainer(name: "counter", managedObjectModel: NSManagedObjectModel.mergedModel(from: [Bundle(for: type(of: self))])!)
         container.persistentStoreDescriptions[0].url = URL(fileURLWithPath: "/dev/null")
         container.loadPersistentStores { (description, error) in
             XCTAssertNil(error)
@@ -28,10 +29,4 @@ class CoreDataTestCase: XCTestCase {
         container = nil
         super.tearDown()
     }
-    
-    // NOTE: This will fail if your .xcdatamodeld is not a member of your Tests target!!!
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle(for: type(of: self))] )!
-        return managedObjectModel
-    }()
 }

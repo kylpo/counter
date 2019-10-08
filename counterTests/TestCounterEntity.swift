@@ -31,35 +31,30 @@ final class TestCounterEntity: CoreDataTestCase {
         
         let ticks = try! XCTUnwrap(counter.ticks)
         XCTAssertEqual(ticks.count, 0)
-        
-        XCTAssertNotNil(counter.value)
-        XCTAssertEqual(counter.value, 0)
     }
     
     func test_mutable_values() {
         // given
         let name = "name"
         let color = "color"
-        let value = Int32(10)
         
         // when
         counter.name = name
         counter.color = color
-        counter.value = value
         
         // then
         XCTAssertEqual(counter.name, name)
         XCTAssertEqual(counter.color, color)
-        XCTAssertEqual(counter.value, value)
     }
     
     func test_it_can_add_ticks() {
-        let tick = Tick(context: container.viewContext)
-        
+        // given
         let ticksBefore = try! XCTUnwrap(counter.ticks).count
         
-        counter.addToTicks(tick)
+        // when
+        counter.addToTicks(Tick(context: container.viewContext))
         
+        // then
         let ticksAfter = try! XCTUnwrap(counter.ticks).count
         XCTAssertNotEqual(ticksBefore, ticksAfter)
     }
@@ -74,7 +69,7 @@ final class TestCounterEntity: CoreDataTestCase {
 //        }).store(in: &cancellables)
 //
 //        // when
-//        counter.value = 10
+//        counter.name = "ping"
 //
 //        // then
 //        XCTAssertTrue(receivedUpdate)

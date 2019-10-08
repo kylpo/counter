@@ -24,6 +24,7 @@
 		424D7506233E3F6A0051CAB3 /* counterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7505233E3F6A0051CAB3 /* counterUITests.swift */; };
 		424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7514233E418A0051CAB3 /* CountersScene.swift */; };
 		424D7518233E42590051CAB3 /* CounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D7517233E42590051CAB3 /* CounterCell.swift */; };
+		42906ECE234B86270026816A /* VMTestCounterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42906ECD234B86270026816A /* VMTestCounterDetail.swift */; };
 		4299009F2341BD72009FADDD /* CounterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4299009E2341BD72009FADDD /* CounterDetail.swift */; };
 		429900A52341CF94009FADDD /* TickEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A42341CF94009FADDD /* TickEntity.swift */; };
 		429900A723422C61009FADDD /* CounterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A623422C61009FADDD /* CounterManager.swift */; };
@@ -71,6 +72,7 @@
 		424D7507233E3F6A0051CAB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		424D7514233E418A0051CAB3 /* CountersScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersScene.swift; sourceTree = "<group>"; };
 		424D7517233E42590051CAB3 /* CounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCell.swift; sourceTree = "<group>"; };
+		42906ECD234B86270026816A /* VMTestCounterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMTestCounterDetail.swift; sourceTree = "<group>"; };
 		4299009E2341BD72009FADDD /* CounterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterDetail.swift; sourceTree = "<group>"; };
 		429900A42341CF94009FADDD /* TickEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickEntity.swift; sourceTree = "<group>"; };
 		429900A623422C61009FADDD /* CounterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterManager.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */,
+				42906ECD234B86270026816A /* VMTestCounterDetail.swift */,
 			);
 			name = VMTests;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				423014F6233E4D3E00F94B1C /* TestCounterEntity.swift in Sources */,
 				42301501233E686B00F94B1C /* TestCounterModel.swift in Sources */,
 				423014F9233E51CD00F94B1C /* counter.xcdatamodeld in Sources */,
+				42906ECE234B86270026816A /* VMTestCounterDetail.swift in Sources */,
 				42B196A123400F0D00BEC46C /* VMTestCounterCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,20 +16,24 @@ public enum CounterColor: String, CaseIterable {
 
 /// Protocol
 public protocol CounterModel {
+    var objectWillChange: ObservableObjectPublisher { get }
     var name: String { get set }
     var color: CounterColor { get set }
-    var value: Int { get set }
 //    var ticks: Set<Tick> { get }
     var ticks: NSSet { get }
-    
-    var totalCount: Int { get }
     var entity: CounterEntity { get }
-
 //    var ticks: Set<T where T:Tick> { get }
-    
     func addToTicks(_ value: TickEntity)
 
-    var objectWillChange: ObservableObjectPublisher { get }
+}
+
+/// Protocol computed properties
+extension CounterModel {
+    var totalCount: Int {
+        get {
+            entity.ticks?.count ?? 0
+        }
+    }
 }
 
 /// **Implementation** (of protocol)
@@ -57,16 +61,6 @@ final class CounterModelImpl: CounterModel, ObservableObject {
         }
     }
     
-    var value: Int {
-        get {
-            Int(entity.value)
-        }
-        set {
-            self.objectWillChange.send()
-            entity.value = Int32(newValue)
-        }
-    }
-    
 //    var ticks: Set<Tick> {
 //        get {
 //            if let ticks = entity.ticks {
@@ -84,17 +78,11 @@ final class CounterModelImpl: CounterModel, ObservableObject {
     var ticks: NSSet {
         get {
             entity.ticks ?? NSSet()
-            //            entity.ticks as Set<Tick> ?? Set<Tick>()
+//                        entity.ticks as Set<Tick> ?? Set<Tick>()
         }
         //        set {
         //            entity.addToTicks(NSSet(object: newValue))
         //        }
-    }
-    
-    var totalCount: Int {
-        get {
-            entity.ticks?.count ?? 0
-        }
     }
     
     func addToTicks(_ value: TickEntity) {
@@ -116,12 +104,14 @@ final class CounterModelImpl: CounterModel, ObservableObject {
 final class CounterModelMock: CounterModel, ObservableObject {
     var entity: CounterEntity = CounterEntityMock()
     
-    func addToTicks(_ value: TickEntity) {}
-    
     @Published var name: String = "Mock name"
     @Published var color: CounterColor = .none
-    @Published var value: Int = 0
     @Published var ticks: NSSet = NSSet()
-    var totalCount: Int = 0
+    
+    var hasAddedTick = false
+    
+    func addToTicks(_ value: TickEntity) {
+        hasAddedTick = true
+    }
 }
 #endif

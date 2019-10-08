@@ -16,7 +16,6 @@ public protocol CounterEntity {
     var id: UUID? { get set }
     var name: String? { get set }
     var color: String? { get set }
-    var value: Int32 { get set }
     var ticks: NSSet? { get set }
     
 //    func addToTicks(_ value: Tick)
@@ -66,7 +65,6 @@ class CounterEntityMock: CounterEntity, ObservableObject {
     
     @Published var name: String? = nil
     @Published var color: String? = nil
-    @Published var value: Int32 = 0
     @Published var ticks: NSSet? = nil
     
 //    func addToTicks(_ value: Tick) {

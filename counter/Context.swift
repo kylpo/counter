@@ -78,3 +78,17 @@ extension NSManagedObjectContext : Context {
 //    }
     
 }
+
+/// **Mock** implementation
+#if DEBUG
+final class ContextMock: Context {
+    var hasSaved = false
+    
+    func saveChanges() {
+        hasSaved = true
+    }
+    func saveChangesAndWait() {
+        hasSaved = true
+    }
+}
+#endif

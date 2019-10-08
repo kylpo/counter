@@ -78,3 +78,15 @@ extension NSManagedObjectContext : TickManager {
 //        }
 //    }
 }
+
+/// **Mock** implementation
+#if DEBUG
+final class TickManagerMock: TickManager {
+    func create(_ count: Int?) -> TickEntity {
+        let it = TickEntityMock()
+//        it.name = name
+//        it.color = color
+        return it
+    }
+}
+#endif

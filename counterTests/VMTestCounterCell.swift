@@ -22,84 +22,41 @@ final class VMTestCounterCell: XCTestCase {
         super.tearDown()
     }
     
-    private func onChangeStub() {}
+    // MARK: - Properties and Wiring -
     
     func test_default_values() {
         // given
         let model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model, onUpdate: onChangeStub)
+        let vm: CounterCellVM = CounterCellVM(counter: model)
         
         // then
         XCTAssertEqual(model.name, vm.name)
-        XCTAssertEqual(model.value, vm.value)
+        XCTAssertEqual(model.totalCount, vm.value)
     }
         
-    func test_model_change_updates_vm() {
+    func test_model_property_changes_update_vm() {
         // given
         var model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model, onUpdate: onChangeStub)
-        let before: Int = vm.value
+        let vm: CounterCellVM = CounterCellVM(counter: model)
+        let before: String = vm.name
         
         // when
-        model.value = 10
+        model.name = "\(before) text"
         
         // then
-        let after: Int = vm.value
+        let after: String = vm.name
         XCTAssertNotEqual(before, after)
-        XCTAssertEqual(after, 10)
+        XCTAssertEqual(after, "\(before) text")
     }
     
-    func test_vm_change_updates_model() {
-        // given
-        let model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model, onUpdate: onChangeStub)
-        let before: Int = model.value
-        
-        // when
-        vm.value = 10
-        
-        // then
-        let after: Int = model.value
-        XCTAssertNotEqual(before, after)
-        XCTAssertEqual(after, 10)
-    }
+//    func test_vm_property_changes_update_model() {
+//        // Does Not Apply
+//    }
     
-    func test_increment_action_mutates_value() {
+    func test_model_change_notifies_vm_subscribers() {
         // given
-        let model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model, onUpdate: onChangeStub)
-        let before: Int = vm.value
-        
-        // when
-        vm.incrementAction()
-        
-        // then
-        let after: Int = vm.value
-        XCTAssertEqual(after, before + 1)
-        XCTAssertEqual(after, model.value)
-    }
-    
-    func test_increment_action_triggers_side_effect() {
-        // given
-        let model: CounterModel = CounterModelMock()
-        var didCallOnChange: Bool = false
-        
-        func onChangeSpy() {
-            didCallOnChange = true
-        }
-        
-        let vm: CounterCellVM = CounterCellVM(counter: model, onUpdate: onChangeSpy)
-
-        // when
-        vm.incrementAction()
-        
-        // then
-        XCTAssertTrue(didCallOnChange)
-    }
-    
-    func test_value_change_notifies_subscribers() {
-        // given
-        let vm: CounterCellVM = CounterCellVM(counter: CounterModelMock(), onUpdate: onChangeStub)
+        var model: CounterModel = CounterModelMock()
+        let vm: CounterCellVM = CounterCellVM(counter: model)
         var receivedUpdate = false
         
         vm.objectWillChange.sink(receiveValue: {
@@ -107,26 +64,7 @@ final class VMTestCounterCell: XCTestCase {
         }).store(in: &cancellables)
         
         // when
-        vm.value = 10
-        
-        // then
-        XCTAssertTrue(receivedUpdate)
-    }
-    
-    // ERRORS!!!
-    // TODO: fix in next commit
-    func test_model_change_notifies_subscribers() {
-        // given
-        var model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model, onUpdate: onChangeStub)
-        var receivedUpdate = false
-        
-        vm.objectWillChange.sink(receiveValue: {
-            receivedUpdate = true
-        }).store(in: &cancellables)
-        
-        // when
-        model.value = 10
+        model.name = "ping"
         
         // then
         XCTAssertTrue(receivedUpdate)

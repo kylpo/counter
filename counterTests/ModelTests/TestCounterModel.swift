@@ -15,6 +15,8 @@ import Combine
 final class TestCounterModel: XCTestCase {
     var cancellables: [AnyCancellable] = []
 
+    // MARK: - Properties and Wiring -
+    
     func test_default_values() {
         let counter: CounterModelImpl = CounterModelImpl(CounterEntityMock())
 
@@ -23,9 +25,6 @@ final class TestCounterModel: XCTestCase {
 
         XCTAssertNotNil(counter.color)
         XCTAssertEqual(counter.color, .none)
-
-        XCTAssertNotNil(counter.value)
-        XCTAssertEqual(counter.value, 0)
         
         XCTAssertEqual(counter.totalCount, 0)
     }
@@ -35,17 +34,14 @@ final class TestCounterModel: XCTestCase {
         let counter: CounterModelImpl = CounterModelImpl(CounterEntityMock())
         let name: String = "name"
         let color: CounterColor = .red
-        let value: Int = 10
 
         // when
         counter.name = name
         counter.color = color
-        counter.value = value
 
         // then
         XCTAssertEqual(counter.name, name)
         XCTAssertEqual(counter.color, color)
-        XCTAssertEqual(counter.value, value)
     }
     
     func test_it_updates_entity() {
@@ -56,12 +52,10 @@ final class TestCounterModel: XCTestCase {
         // when
         counter.name = "name"
         counter.color = .red
-        counter.value = 10
 
         // then
         XCTAssertEqual(entity.name, "name")
         XCTAssertEqual(entity.color, "red")
-        XCTAssertEqual(entity.value, 10)
     }
     
     func test_it_observes_entity_updates() {
@@ -72,48 +66,49 @@ final class TestCounterModel: XCTestCase {
         // when
         entity.name = "name"
         entity.color = "red"
-        entity.value = 10
 
         // then
         XCTAssertEqual(counter.name, "name")
         XCTAssertEqual(counter.color, .red)
-        XCTAssertEqual(counter.value, 10)
     }
     
-    func test_value_change_notifies_subscribers() {
+    // Non-entity property does not currently exist
+//    func test_nonEntity_backed_change_notifies_subscribers() {
+//        // given
+//        let entity = CounterEntityMock()
+//        let counter: CounterModelImpl = CounterModelImpl(entity)
+//        var receivedUpdate = false
+//
+//        counter.objectWillChange.sink(receiveValue: {
+//            receivedUpdate = true
+//        }).store(in: &cancellables)
+//
+//        // when
+//        counter.name = "ping"
+//
+//        // then
+//        XCTAssertTrue(receivedUpdate)
+//    }
+
+    func test_entity_change_notifies_model_subscribers() {
         // given
         let entity = CounterEntityMock()
         let counter: CounterModelImpl = CounterModelImpl(entity)
         var receivedUpdate = false
-        
+
         counter.objectWillChange.sink(receiveValue: {
             receivedUpdate = true
         }).store(in: &cancellables)
-        
+
         // when
-        counter.value = 10
-        
+        entity.name = "ping"
+
         // then
         XCTAssertTrue(receivedUpdate)
     }
     
-    func test_entity_change_notifies_subscribers() {
-        // given
-        let entity = CounterEntityMock()
-        let counter: CounterModelImpl = CounterModelImpl(entity)
-        var receivedUpdate = false
-        
-        counter.objectWillChange.sink(receiveValue: {
-            receivedUpdate = true
-        }).store(in: &cancellables)
-        
-        // when
-        entity.value = 10
-        
-        // then
-        XCTAssertTrue(receivedUpdate)
-    }
-    
+    // MARK: - Relations -
+
     func test_it_adds_ticks() {
         let entity = CounterEntityMock()
         let counter: CounterModelImpl = CounterModelImpl(entity)
@@ -126,6 +121,8 @@ final class TestCounterModel: XCTestCase {
         XCTAssertNotEqual(before, after)
     }
     
+    // MARK: - Computed Properties -
+
     func test_it_has_count_of_ticks() {
         let entity = CounterEntityMock()
         let counter: CounterModelImpl = CounterModelImpl(entity)

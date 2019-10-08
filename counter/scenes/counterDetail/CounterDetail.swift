@@ -26,29 +26,30 @@ final class CounterDetailVM: ObservableObject {
 
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
 
-    private(set) var name: String
+    var name: String {
+        counter.name
+    }
+    
     var value: Int
         {
         get {
             counter.totalCount
         }
         set {
-            self.objectWillChange.send()
-//            counter.value = newValue
+//            self.objectWillChange.send()
             counter.addToTicks(tickManager.create(0))
         }
     }
     // todo color
     
     init(counter: CounterModel, manager: CounterManager, tickManager: TickManager, context: Context, onExit: @escaping () -> Void) {
-//    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
         self.counter = counter
         self.manager = manager
         self.tickManager = tickManager
         self.context = context
         self.onExit = onExit
         
-        self.name = counter.name
+//        self.name = counter.name
         
         cancellable = counter.objectWillChange.sink(receiveValue: {
             self.objectWillChange.send()
@@ -121,8 +122,8 @@ struct CounterDetailContainer: View {
 
 typealias CounterDetail = CounterDetailContainer
 
-struct CountersDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        CountersScene()
-    }
-}
+//struct CountersDetail_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CountersScene()
+//    }
+//}

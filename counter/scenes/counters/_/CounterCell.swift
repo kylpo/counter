@@ -13,40 +13,24 @@ import Combine
 
 // View Machine
 final class CounterCellVM: ObservableObject {
-    let onUpdate: () -> Void
-
     fileprivate var counter: CounterModel
     private var cancellable: AnyCancellable?
 
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
-
-    private(set) var name: String
-    var value: Int
-        {
-        get {
-            counter.value
-        }
-        set {
-            self.objectWillChange.send()
-            counter.value = newValue
-        }
+    var name: String {
+        counter.name
+    }
+    var value: Int {
+        counter.totalCount
     }
     // todo color
     
-    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
+    init(counter: CounterModel) {
         self.counter = counter
-        self.onUpdate = onUpdate
-        
-        self.name = counter.name
         
         cancellable = counter.objectWillChange.sink(receiveValue: {
             self.objectWillChange.send()
         })
-    }
-    
-    func incrementAction() {
-        value += 1
-        onUpdate()
     }
 }
 
@@ -57,12 +41,11 @@ private struct CounterCellView: View {
     
     init(counter: CounterModel, onUpdate: @escaping () -> Void) {
         self.onUpdate = onUpdate
-        vm = CounterCellVM(counter: counter, onUpdate: onUpdate)
+        vm = CounterCellVM(counter: counter)
     }
     
     var body: some View {
         NavigationLink(destination: CounterDetail(counter: vm.counter)) {
-//        Button(action: vm.incrementAction) {
             HStack {
                 Text(vm.name)
                 Spacer()

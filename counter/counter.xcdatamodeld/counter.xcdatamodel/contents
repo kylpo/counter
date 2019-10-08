@@ -4,7 +4,6 @@
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="value" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="ticks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tick" inverseName="counter" inverseEntity="Tick"/>
     </entity>
     <entity name="Tick" representedClassName="Tick" syncable="YES" codeGenerationType="class">
@@ -13,7 +12,7 @@
         <relationship name="counter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Counter" inverseName="ticks" inverseEntity="Counter"/>
     </entity>
     <elements>
-        <element name="Counter" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Counter" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Tick" positionX="225.41015625" positionY="-5.03125" width="128" height="88"/>
     </elements>
 </model>

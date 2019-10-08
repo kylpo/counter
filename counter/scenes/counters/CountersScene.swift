@@ -52,7 +52,7 @@ struct CountersScene: View {
                         Image(systemName: "minus")
                     }
                     Button(action: {
-                        _ = self.moc.create(name: "testing", color: .none, value: 0)
+                        _ = self.moc.create(name: "testing", color: .none)
                         self.moc.saveChanges()
                     }) {
                         Image(systemName: "plus.circle")
