@@ -19,10 +19,8 @@ public protocol CounterModel {
     var objectWillChange: ObservableObjectPublisher { get }
     var name: String { get set }
     var color: CounterColor { get set }
-//    var ticks: Set<Tick> { get }
-    var ticks: NSSet { get }
     var entity: CounterEntity { get }
-//    var ticks: Set<T where T:Tick> { get }
+    var ticks: [TickEntity] { get }
     func addToTicks(_ value: TickEntity)
 
 }
@@ -61,28 +59,10 @@ final class CounterModelImpl: CounterModel, ObservableObject {
         }
     }
     
-//    var ticks: Set<Tick> {
-//        get {
-//            if let ticks = entity.ticks {
-//                return ticks as! Set<Tick>
-//            }
-//            else {
-//                return Set<Tick>()
-//            }
-////            entity.ticks as Set<Tick> ?? Set<Tick>()
-//        }
-////        set {
-////            entity.addToTicks(NSSet(object: newValue))
-////        }
-//    }
-    var ticks: NSSet {
+    var ticks: [TickEntity] {
         get {
-            entity.ticks ?? NSSet()
-//                        entity.ticks as Set<Tick> ?? Set<Tick>()
+            entity.ticks?.allObjects.map { $0 as! TickEntity } ?? []
         }
-        //        set {
-        //            entity.addToTicks(NSSet(object: newValue))
-        //        }
     }
     
     func addToTicks(_ value: TickEntity) {
@@ -106,7 +86,7 @@ final class CounterModelMock: CounterModel, ObservableObject {
     
     @Published var name: String = "Mock name"
     @Published var color: CounterColor = .none
-    @Published var ticks: NSSet = NSSet()
+    @Published var ticks: [TickEntity] = []
     
     var hasAddedTick = false
     
