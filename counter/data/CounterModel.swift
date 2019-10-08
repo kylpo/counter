@@ -28,9 +28,15 @@ public protocol CounterModel {
 /// Protocol computed properties
 extension CounterModel {
     var totalCount: Int {
-        get {
-            entity.ticks?.count ?? 0
-        }
+        ticks.count
+    }
+    
+    var todayCount: Int {
+        let calendar = Calendar.current
+        return ticks.filter({
+            guard let timestamp = $0.timestamp else { return false }
+            return calendar.isDateInToday(timestamp)
+        }).count
     }
 }
 

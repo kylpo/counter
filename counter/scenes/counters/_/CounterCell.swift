@@ -15,18 +15,20 @@ import Combine
 final class CounterCellVM: ObservableObject {
     fileprivate var counter: CounterModel
     private var cancellable: AnyCancellable?
+    private var showTotalCount: Bool
 
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
     var name: String {
         counter.name
     }
     var value: Int {
-        counter.totalCount
+        showTotalCount ? counter.totalCount : counter.todayCount
     }
     // todo color
     
-    init(counter: CounterModel) {
+    init(counter: CounterModel, showTotalCount: Bool) {
         self.counter = counter
+        self.showTotalCount = showTotalCount
         
         cancellable = counter.objectWillChange.sink(receiveValue: {
             self.objectWillChange.send()
@@ -37,11 +39,9 @@ final class CounterCellVM: ObservableObject {
 // Presentational View
 private struct CounterCellView: View {
     @ObservedObject private var vm: CounterCellVM
-    let onUpdate: () -> Void
     
-    init(counter: CounterModel, onUpdate: @escaping () -> Void) {
-        self.onUpdate = onUpdate
-        vm = CounterCellVM(counter: counter)
+    init(counter: CounterModel, showTotalCount: Bool) {
+        vm = CounterCellVM(counter: counter, showTotalCount: showTotalCount)
     }
     
     var body: some View {
@@ -58,14 +58,11 @@ private struct CounterCellView: View {
 // Connected View (controller/container)
 struct CounterCellContainer: View {
     let counter: CounterModel
+    let showTotalCount: Bool
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
-    
-    func handleUpdate() {
-        try! moc.save()
-    }
 
     var body: some View {
-        CounterCellView(counter: counter, onUpdate: handleUpdate)
+        CounterCellView(counter: counter, showTotalCount: showTotalCount)
     }
 }
 

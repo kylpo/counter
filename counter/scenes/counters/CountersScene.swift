@@ -17,6 +17,8 @@ struct CountersScene: View {
     @FetchRequest(entity: Counter.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Counter.name, ascending: true)])
     var counters: FetchedResults<Counter>
     
+    @State private var dateRange = 0
+    
     func deleteAll() {
         // Initialize Fetch Request
         let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
@@ -42,23 +44,27 @@ struct CountersScene: View {
     
     var body: some View {
         NavigationView {
-        List(counters, id: \.id) { counter in
-//            ForEach(counters) { counter in
-                CounterCell(counter: CounterModelImpl(counter))
-        }.navigationBarTitle("Counters")
-            .navigationBarItems(trailing:
-                HStack {
-                    Button(action: deleteAll) {
-                        Image(systemName: "minus")
-                    }
-                    Button(action: {
-                        _ = self.moc.create(name: "testing", color: .none)
-                        self.moc.saveChanges()
-                    }) {
-                        Image(systemName: "plus.circle")
-                    }
-            })
-//        }
+            VStack {
+                Picker(selection: $dateRange, label: Text("What is your favorite color?")) {
+                    Text("Total").tag(0)
+                    Text("Today").tag(1)
+                }.pickerStyle(SegmentedPickerStyle())
+//            }
+            List(counters, id: \.id) { counter in
+                CounterCell(counter: CounterModelImpl(counter), showTotalCount: self.dateRange == 0)
+                }}.navigationBarTitle("Counters")
+                .navigationBarItems(trailing:
+                    HStack {
+                        Button(action: deleteAll) {
+                            Image(systemName: "minus")
+                        }
+                        Button(action: {
+                            _ = self.moc.create(name: "testing", color: .none)
+                            self.moc.saveChanges()
+                        }) {
+                            Image(systemName: "plus.circle")
+                        }
+                })
         }
     }
 }
