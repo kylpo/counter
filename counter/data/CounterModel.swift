@@ -61,7 +61,8 @@ final class CounterModelImpl: CounterModel, ObservableObject {
     
     var ticks: [TickEntity] {
         get {
-            entity.ticks?.allObjects.map { $0 as! TickEntity } ?? []
+            entity.ticks?.allObjects as? [TickEntity] ?? []
+//            entity.ticks?.allObjects.map { $0 as! TickEntity } ?? []
         }
     }
     
