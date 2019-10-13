@@ -27,7 +27,7 @@ final class VMTestCounterCell: XCTestCase {
     func test_default_values() {
         // given
         let model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model)
+        let vm: CounterCellVM = CounterCellVM(counter: model, showTotalCount: true)
         
         // then
         XCTAssertEqual(model.name, vm.name)
@@ -37,7 +37,7 @@ final class VMTestCounterCell: XCTestCase {
     func test_model_property_changes_update_vm() {
         // given
         var model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model)
+        let vm: CounterCellVM = CounterCellVM(counter: model, showTotalCount: true)
         let before: String = vm.name
         
         // when
@@ -56,7 +56,7 @@ final class VMTestCounterCell: XCTestCase {
     func test_model_change_notifies_vm_subscribers() {
         // given
         var model: CounterModel = CounterModelMock()
-        let vm: CounterCellVM = CounterCellVM(counter: model)
+        let vm: CounterCellVM = CounterCellVM(counter: model, showTotalCount: true)
         var receivedUpdate = false
         
         vm.objectWillChange.sink(receiveValue: {

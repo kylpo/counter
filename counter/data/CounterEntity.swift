@@ -11,36 +11,39 @@ import CoreData
 import Combine
 
 /// Protocol
-//@objc
+@objc
 public protocol CounterEntity {
     var id: UUID? { get set }
     var name: String? { get set }
     var color: String? { get set }
-    var ticks: NSSet? { get set }
-    
+    var ticks: NSSet { get set }
+//    var ticks: Set<TickEntityObject> { get set }
+
 //    func addToTicks(_ value: Tick)
-    func addToTicks(_ values: NSSet)
-    
-    var objectWillChange: ObservableObjectPublisher { get }
+    func addTicksObject(_ value: TickEntity)
+    func addTicks(_ values: NSSet)
 }
 
+//typealias CounterEntityObject = CounterEntity & NSObject
 
-//// MARK: Generated accessors for ticks
 //extension Counter {
+
+extension CounterEntity where Self: NSObject {
+    
+    public func ticksPublisher() -> AnyPublisher<NSSet, Never> {
+        return self.publisher(for: \.ticks)/*.print()*//*.map({$0 as? TickEntity})*/.eraseToAnyPublisher()
+//        return self.publisher(for: \.ticks)
+    }
 //
-//    @objc(addTicksObject:)
-//    @NSManaged public func addToTicks(_ value: Tick)
+//    public func colorPublisher() -> Publishers.Map<NSObject.KeyValueObservingPublisher<Self, String>, TallyColor?> {
+//        return self.publisher(for: \.color).map({ TallyColor(rawValue: $0) })
+//    }
 //
-//    @objc(removeTicksObject:)
-//    @NSManaged public func removeFromTicks(_ value: Tick)
-//
-//    @objc(addTicks:)
-//    @NSManaged public func addToTicks(_ values: NSSet)
-//
-//    @objc(removeTicks:)
-//    @NSManaged public func removeFromTicks(_ values: NSSet)
-//
-//}
+    
+    public var namePublisher: AnyPublisher<Optional<String>, Never> {
+        self.publisher(for: \.name).print()/*.replaceNil(with: "")*/.eraseToAnyPublisher()
+    }
+}
 
 
 /// **Implementation** (of protocol)
@@ -60,37 +63,21 @@ extension Counter: CounterEntity {
 
 /// **Mock** implementation
 #if DEBUG
-class CounterEntityMock: CounterEntity, ObservableObject {    
+class CounterEntityMock: NSObject, CounterEntity {
+    var hasAddedTicks: Bool = false
+    
     var id: UUID? = UUID()
     
-    @Published var name: String? = nil
-    @Published var color: String? = nil
-    @Published var ticks: NSSet? = nil
+    @objc dynamic var name: String? = nil
+    @objc dynamic var color: String? = nil
+    @objc dynamic var ticks: NSSet = NSSet()
     
-//    func addToTicks(_ value: Tick) {
-//        if let ticks = self.ticks {
-//            ticks.adding(value)
-//        } else {
-//            ticks = NSSet(object: value)
-//        }
-//    }
-    func addToTicks(_ values: NSSet) {
-        if let ticks = self.ticks {
-            ticks.adding(values)
-        } else {
-            ticks = values
-        }
+    func addTicksObject(_ value: TickEntity) {
+        hasAddedTicks = true
+    }
+    
+    func addTicks(_ values: NSSet) {
+        hasAddedTicks = true
     }
 }
-
-//class CounterMock: Counter {
-//    init() {
-//        super.init()
-//
-//        self.name = nil
-//        self.color = nil
-//        self.value = 0
-//
-//    }
-//}
 #endif

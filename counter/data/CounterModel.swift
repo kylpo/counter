@@ -42,14 +42,17 @@ extension CounterModel {
 
 /// **Implementation** (of protocol)
 final class CounterModelImpl: CounterModel, ObservableObject {
-    var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
+//    var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
     
     private var cancellable: AnyCancellable?
+    private var cancellables: [AnyCancellable] = []
+
     private(set) var entity: CounterEntity
+    @Published private var entityName: String?
     
     var name: String {
         get {
-            entity.name ?? ""
+            entityName ?? ""
         }
         set {
             entity.name = newValue
@@ -65,24 +68,68 @@ final class CounterModelImpl: CounterModel, ObservableObject {
         }
     }
     
-    var ticks: [TickEntity] {
-        get {
-            entity.ticks?.allObjects as? [TickEntity] ?? []
-//            entity.ticks?.allObjects.map { $0 as! TickEntity } ?? []
-        }
-    }
+//    @objc dynamic var ticks: [TickEntity]
+    
+    var ticks: [TickEntity] = [] //{
+//        get {
+//            entity.ticks?.allObjects as? [TickEntity] ?? []
+////            entity.ticks?.allObjects.map { $0 as! TickEntity } ?? []
+//        }
+//    }
+//
+//    var ticksPublisher: CurrentValueSubject<TickEntity, Never>
     
     func addToTicks(_ value: TickEntity) {
         self.objectWillChange.send() // ?: Needed?
-        entity.addToTicks(NSSet(object: value))
+        entity.addTicksObject(value)
+//        entity.addTicks(NSSet(object: value))
     }
     
-    init(_ entity: CounterEntity) {
+    init(_ entity: CounterEntity & NSObject) {
         self.entity = entity
+//        self.entityName = entity.name
         
-        cancellable = entity.objectWillChange.sink(receiveValue: {
-            self.objectWillChange.send()
-        })
+        entity.namePublisher.sink(receiveValue: {
+            self.entityName = $0
+//            self.objectWillChange.send()
+        }).store(in: &cancellables)
+        
+        
+        // Below completes, so not usable for this.
+//        entity.ticks.publisher.sink(receiveCompletion: {
+//            print ($0)
+//
+//        },
+//                            receiveValue: {
+//            print($0)
+//        }).store(in: &cancellables)
+        
+        entity.ticksPublisher().sink(
+            receiveCompletion: {
+                print ($0)
+        },
+            receiveValue: {
+                self.ticks = $0.allObjects as? [TickEntity] ?? []
+        }).store(in: &cancellables)
+        
+//        Use publisher to stream values instead of recalculating + recreating ticks array?
+//        entity.namePublisher().sink(receiveCompletion: { print ($0) },
+//                    receiveValue: { print ($0) })
+//        //            .sink {
+//        //            /*[ticks] in*/ print($0)
+//        //        }
+////        entity.ticks?.publisher.map({$0 as? TickEntity})
+////            .sink(receiveCompletion: { print ($0) },
+////            receiveValue: { print ($0) })
+//////            .sink {
+//////            /*[ticks] in*/ print($0)
+//////        }
+//        .store(in: &cancellables)
+//        entity.ticks?.publisher.map({$0 as? TickEntity}).assign(to: \.ticks, on: self).store(in: &cancellables)
+        
+//        cancellable = entity.objectWillChange.sink(receiveValue: {
+//            self.objectWillChange.send()
+//        })
     }
 }
 

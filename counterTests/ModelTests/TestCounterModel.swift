@@ -27,6 +27,7 @@ final class TestCounterModel: XCTestCase {
         XCTAssertEqual(counter.color, .none)
         
         XCTAssertEqual(counter.totalCount, 0)
+        XCTAssertEqual(counter.todayCount, 0)
     }
     
     func test_mutable_values() {
@@ -109,29 +110,50 @@ final class TestCounterModel: XCTestCase {
     
     // MARK: - Relations -
 
-    func test_it_adds_ticks() {
+    func test_it_adds_ticks_to_entity() {
+        // given
         let entity = CounterEntityMock()
         let counter: CounterModelImpl = CounterModelImpl(entity)
+        XCTAssertFalse(entity.hasAddedTicks)
         
-        let before = counter.ticks.count
-        
+        // when
         counter.addToTicks(TickEntityMock())
         
-        let after = counter.ticks.count
-        XCTAssertNotEqual(before, after)
+        // then
+        XCTAssertTrue(entity.hasAddedTicks)
     }
     
     // MARK: - Computed Properties -
 
-    func test_it_has_count_of_ticks() {
-        let entity = CounterEntityMock()
+    func test_it_has_total_count_of_ticks() {
+        // given
+        let entity: CounterEntityMock = CounterEntityMock()
+        entity.ticks = NSSet(objects: TickEntityMock(), TickEntityMock())
+        
+        // when
         let counter: CounterModelImpl = CounterModelImpl(entity)
         
-        let before = counter.totalCount
+        // then
+        XCTAssertEqual(2, counter.totalCount)
+    }
+    
+    func test_it_has_today_count_of_ticks() {
+        // given
+        let entity: CounterEntityMock = CounterEntityMock()
+        let todayTick = TickEntityMock()
+        let yesterdayTick = TickEntityMock()
+        let today = Date()
+
+        todayTick.timestamp = today
+        yesterdayTick.timestamp = Calendar.current.date(byAdding: .day, value: -1, to: today)
         
-        counter.addToTicks(TickEntityMock())
+        entity.ticks = NSSet(objects: todayTick, yesterdayTick)
         
-        let after = counter.totalCount
-        XCTAssertNotEqual(before, after)
+        // when
+        let counter: CounterModelImpl = CounterModelImpl(entity)
+        
+        // then
+        XCTAssertEqual(1, counter.todayCount)
+        XCTAssertEqual(2, counter.totalCount)
     }
 }
