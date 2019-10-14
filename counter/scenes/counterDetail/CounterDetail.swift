@@ -36,7 +36,6 @@ final class CounterDetailVM: ObservableObject {
             counter.totalCount
         }
         set {
-//            self.objectWillChange.send()
             counter.addToTicks(tickManager.create(0))
         }
     }
@@ -48,8 +47,6 @@ final class CounterDetailVM: ObservableObject {
         self.tickManager = tickManager
         self.context = context
         self.onExit = onExit
-        
-//        self.name = counter.name
         
         cancellable = counter.objectWillChange.sink(receiveValue: {
             self.objectWillChange.send()

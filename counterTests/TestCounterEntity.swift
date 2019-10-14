@@ -83,11 +83,13 @@ final class TestCounterEntity: CoreDataTestCase {
         var receivedValue: Int = 0
         
         // validation
-        counter.ticksPublisher().sink(receiveCompletion: {
+        counter.ticksPublisher.sink(receiveCompletion: {
             print ($0)
         }, receiveValue: {
-            print($0)
-            receivedValue = $0.count
+//            print($0)
+            if let ticks = $0 {
+                receivedValue = ticks.count
+            }
         }).store(in: &cancellables)
         
         // when

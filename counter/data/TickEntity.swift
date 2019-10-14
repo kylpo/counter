@@ -12,31 +12,27 @@ import Combine
 
 /// Protocol
 @objc
-public protocol TickEntity: AnyObject {
+public protocol TickEntity {
     var timestamp: Date? { get set }
     var count: Int32 { get set }
-    
-//    var objectWillChange: ObservableObjectPublisher { get }
 }
 
-//typealias TickEntityObject = TickEntity where Self: NSObject, Self: Hashable
-typealias TickEntityObject = TickEntity & Hashable
-
 /// **Implementation** (of protocol)
-extension Tick: TickEntity {}
+@objc(Tick)
+public class Tick: NSManagedObject, TickEntity {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Tick> {
+        return NSFetchRequest<Tick>(entityName: "Tick")
+    }
+
+    @NSManaged public var count: Int32
+    @NSManaged public var timestamp: Date?
+    @NSManaged public var counter: CounterEntity?
+}
 
 /// **Mock** implementation
 #if DEBUG
-class TickEntityMock: TickEntity, ObservableObject {
-//    static func == (lhs: TickEntityMock, rhs: TickEntityMock) -> Bool {
-//        return lhs.timestamp == rhs.timestamp
-//    }
-//    
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(timestamp)
-//    }
-    
-    @Published var timestamp: Date? = nil
-    @Published var count: Int32 = 0
+class TickEntityMock: TickEntity {
+    var timestamp: Date? = nil
+    var count: Int32 = 0
 }
 #endif

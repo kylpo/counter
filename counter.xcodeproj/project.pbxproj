@@ -31,10 +31,6 @@
 		429900A9234230D1009FADDD /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900A8234230D1009FADDD /* Context.swift */; };
 		429900AB234238D6009FADDD /* TickManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429900AA234238D6009FADDD /* TickManager.swift */; };
 		42B196A123400F0D00BEC46C /* VMTestCounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */; };
-		42C601D52350ACB3002C80F3 /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C601D32350ACB3002C80F3 /* Counter+CoreDataClass.swift */; };
-		42C601D62350ACB3002C80F3 /* Counter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C601D42350ACB3002C80F3 /* Counter+CoreDataProperties.swift */; };
-		42C601D92350AD87002C80F3 /* Tick+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C601D72350AD87002C80F3 /* Tick+CoreDataClass.swift */; };
-		42C601DA2350AD87002C80F3 /* Tick+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C601D82350AD87002C80F3 /* Tick+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,10 +79,6 @@
 		429900A8234230D1009FADDD /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		429900AA234238D6009FADDD /* TickManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickManager.swift; sourceTree = "<group>"; };
 		42B196A023400F0D00BEC46C /* VMTestCounterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMTestCounterCell.swift; sourceTree = "<group>"; };
-		42C601D32350ACB3002C80F3 /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = "<group>"; };
-		42C601D42350ACB3002C80F3 /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		42C601D72350AD87002C80F3 /* Tick+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tick+CoreDataClass.swift"; sourceTree = "<group>"; };
-		42C601D82350AD87002C80F3 /* Tick+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tick+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +109,6 @@
 		423014FB233E5C6E00F94B1C /* data */ = {
 			isa = PBXGroup;
 			children = (
-				42C601D72350AD87002C80F3 /* Tick+CoreDataClass.swift */,
-				42C601D82350AD87002C80F3 /* Tick+CoreDataProperties.swift */,
-				42C601D32350ACB3002C80F3 /* Counter+CoreDataClass.swift */,
-				42C601D42350ACB3002C80F3 /* Counter+CoreDataProperties.swift */,
 				423014FC233E5C7C00F94B1C /* CounterEntity.swift */,
 				429900A42341CF94009FADDD /* TickEntity.swift */,
 				423014FE233E615100F94B1C /* CounterModel.swift */,
@@ -395,15 +383,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42C601D52350ACB3002C80F3 /* Counter+CoreDataClass.swift in Sources */,
 				424D7518233E42590051CAB3 /* CounterCell.swift in Sources */,
-				42C601D92350AD87002C80F3 /* Tick+CoreDataClass.swift in Sources */,
-				42C601DA2350AD87002C80F3 /* Tick+CoreDataProperties.swift in Sources */,
 				429900A52341CF94009FADDD /* TickEntity.swift in Sources */,
 				424D74E1233E3F680051CAB3 /* AppDelegate.swift in Sources */,
 				424D7515233E418A0051CAB3 /* CountersScene.swift in Sources */,
 				4299009F2341BD72009FADDD /* CounterDetail.swift in Sources */,
-				42C601D62350ACB3002C80F3 /* Counter+CoreDataProperties.swift in Sources */,
 				429900A723422C61009FADDD /* CounterManager.swift in Sources */,
 				424D74E3233E3F680051CAB3 /* SceneDelegate.swift in Sources */,
 				429900AB234238D6009FADDD /* TickManager.swift in Sources */,

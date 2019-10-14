@@ -24,7 +24,9 @@ final class CounterCellVM: ObservableObject {
     var value: Int {
         showTotalCount ? counter.totalCount : counter.todayCount
     }
-    // todo color
+    var color: CounterColor {
+        counter.color
+    }
     
     init(counter: CounterModel, showTotalCount: Bool) {
         self.counter = counter
@@ -48,6 +50,7 @@ private struct CounterCellView: View {
         NavigationLink(destination: CounterDetail(counter: vm.counter)) {
             HStack {
                 Text(vm.name)
+                    .foregroundColor(vm.color.value)
                 Spacer()
                 Text("\(vm.value)")
             }
