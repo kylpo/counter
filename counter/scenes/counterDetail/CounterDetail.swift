@@ -10,12 +10,8 @@ import SwiftUI
 import CoreData
 import Combine
 
-//extension Counter: Identifiable {}
-
-
 // View Machine
 final class CounterDetailVM: ObservableObject {
-//    let onUpdate: () -> Void
     let onExit: () -> Void
     let manager: CounterManager
     let tickManager: TickManager
@@ -25,6 +21,8 @@ final class CounterDetailVM: ObservableObject {
     private var cancellable: AnyCancellable?
 
     var objectWillChange: ObservableObjectPublisher = ObjectWillChangePublisher()
+    
+    /*@Published*/ var showEditModal = false
 
     var name: String {
         counter.name
@@ -39,7 +37,6 @@ final class CounterDetailVM: ObservableObject {
             counter.addToTicks(tickManager.create(0))
         }
     }
-    // todo color
     
     init(counter: CounterModel, manager: CounterManager, tickManager: TickManager, context: Context, onExit: @escaping () -> Void) {
         self.counter = counter
@@ -57,7 +54,11 @@ final class CounterDetailVM: ObservableObject {
     func incrementAction() {
         value += 1
         context.saveChanges()
-//        onUpdate()
+    }
+    
+    func editAction() {
+        objectWillChange.send()
+        showEditModal = true
     }
 
     func deleteAction() {
@@ -70,34 +71,49 @@ final class CounterDetailVM: ObservableObject {
 // Presentational View
 private struct CounterDetailView: View {
     @ObservedObject private var vm: CounterDetailVM
-//    let onExit: () -> Void
-//    let manager: CounterManager
-//    let context: Context
+    let onEdit: () -> Void
+
+//    @State var showEditModal = false
     
-    init(counter: CounterModel, manager: CounterManager ,tickManager: TickManager, context: Context, onExit: @escaping () -> Void) {
-//        self.onExit = onExit
-//        self.manager = manager
-//        self.context = context
+    init(counter: CounterModel, manager: CounterManager ,tickManager: TickManager, context: Context, onExit: @escaping () -> Void, onEdit: @escaping () -> Void) {
+        self.onEdit = onEdit
         vm = CounterDetailVM(counter: counter, manager: manager, tickManager: tickManager, context: context, onExit: onExit)
     }
     
+//    func editAction() {
+////        objectWillChange.send()
+//        showEditModal = true
+//    }
+    
     var body: some View {
         VStack {
-        Button(action: vm.incrementAction) {
-
-            HStack {
-                Text(vm.name)
-                Spacer()
-                Text("\(vm.value)")
+            Button(action: vm.incrementAction) {
+                HStack {
+                    Text(vm.name)
+                    Spacer()
+                    Text("\(vm.value)")
+                }
+            }
+            Button(action: onEdit) {
+                Text("Edit")
+            }
+            Button(action: vm.deleteAction) {
+                Text("Delete")
             }
         }
-            //            Button(action: editAction) {
-            //                Text("Edit")
-            //            }
-            Button(action: vm.deleteAction) {
-                            Text("Delete")
-                        }
-        }
+//        .sheet(isPresented: $showEditModal, content: {
+//            CounterEdit(counter: self.vm.counter)
+//        })//.environment(\.managedObjectContext, self.appState.contextHolder!)
+        
+//        .sheet(isPresented: $showSheet, onDismiss: {
+//            self.appState.editingTally = nil
+//        }, content: {
+//            //                ScrollView {
+//            AddTallyScene(
+//                tally: self.appState.editingTally!
+//            ).environment(\.managedObjectContext, self.appState.contextHolder!)
+//            //                }
+//        })
     }
 }
 
@@ -107,13 +123,22 @@ struct CounterDetailContainer: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    
+    @State var showEditModal = false
 
     func handleExit() {
         self.presentationMode.wrappedValue.dismiss()
     }
+    
+    func handleEdit() {
+        showEditModal = true
+    }
 
     var body: some View {
-        CounterDetailView(counter: counter, manager: moc.counterManager, tickManager: moc.tickManager, context: moc as Context, onExit: handleExit)
+        CounterDetailView(counter: counter, manager: moc.counterManager, tickManager: moc.tickManager, context: moc as Context, onExit: handleExit, onEdit: handleEdit)
+        .sheet(isPresented: $showEditModal, content: {
+            CounterEdit(counter: self.counter).environment(\.managedObjectContext, self.moc.createChild())
+        })
     }
 }
 

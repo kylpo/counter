@@ -11,7 +11,7 @@ import Combine
 import CoreData
 import SwiftUI
 
-public enum CounterColor: String {
+public enum CounterColor: String, CaseIterable {
     case none
     case red
     
@@ -22,32 +22,6 @@ public enum CounterColor: String {
         }
     }
 }
-
-//public enum CounterColor {
-//    case none
-//    case red
-//}
-//
-//extension CounterColor: RawRepresentable {
-//    public typealias RawValue = Color
-//
-//    public init?(rawValue: Color) {
-//        switch rawValue {
-//        case .red: self = .red
-//        case .black: self = .none
-//        default:
-//            self = .none
-//        }
-//    }
-//
-//    public var rawValue: Color {
-//        switch self {
-//        case .red: return .red
-//        case .none: return .black
-//        default: return .black
-//        }
-//    }
-//}
 
 /// Protocol
 public protocol CounterModel {

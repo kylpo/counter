@@ -22,7 +22,7 @@ import CoreData
 //
 
 protocol CounterManager {
-//    func fetch(_ model: CounterModel) -> CounterModel?
+    func fetch(_ model: CounterModel) -> CounterModel?
 //    func fetchAll() -> [CounterModel]
     func create(name: String, color: CounterColor) -> CounterModel
     func delete(_ model: CounterModel)
@@ -37,16 +37,17 @@ extension NSManagedObjectContext : CounterManager {
 //    lazy var tallyRepo = {}()
 //    static var tallyRepo = self as TallyRepository
 //
-//    func fetch(_ tally: Tally) -> Tally? {
-//        if let managedTally = tally as? ManagedTally {
-//            return self.object(with: managedTally.objectID) as! ManagedTally
-//        }
-//        else {
-//            print("Unable to fetch Tally because it isn't a ManagedTally")
-//            return nil
-//        }
-//    }
-//
+    func fetch(_ model: CounterModel) -> CounterModel? {
+        if let entity = model.entity as? Counter {
+            let entity = self.object(with: entity.objectID) as! CounterEntity & NSObject
+            return CounterModelImpl(entity)
+        }
+        else {
+            print("Unable to fetch Tally because it isn't a ManagedTally")
+            return nil
+        }
+    }
+
 //    func fetchAll() -> [Tally] {
 //        let request: NSFetchRequest<ManagedTally> = ManagedTally.fetchRequest()
 //        let results = try? self.fetch(request)
@@ -75,8 +76,14 @@ extension NSManagedObjectContext : CounterManager {
 /// **Mock** implementation
 #if DEBUG
 final class CounterManagerMock: CounterManager {
+    var hasFetched: Bool = false
     var hasCreated: Bool = false
     var hasDeleted: Bool = false
+    
+    func fetch(_ model: CounterModel) -> CounterModel? {
+        hasFetched = true
+        return CounterModelMock()
+    }
     
     func create(name: String, color: CounterColor) -> CounterModel {
         hasCreated = true

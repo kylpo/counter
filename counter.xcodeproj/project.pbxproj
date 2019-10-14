@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4200404A2354A55300BECD1D /* CounterEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420040492354A55300BECD1D /* CounterEdit.swift */; };
 		423014F6233E4D3E00F94B1C /* TestCounterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423014F5233E4D3E00F94B1C /* TestCounterEntity.swift */; };
 		423014F8233E4D7500F94B1C /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423014F7233E4D7500F94B1C /* CoreDataTestCase.swift */; };
 		423014F9233E51CD00F94B1C /* counter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 424D74E4233E3F680051CAB3 /* counter.xcdatamodeld */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		420040492354A55300BECD1D /* CounterEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterEdit.swift; sourceTree = "<group>"; };
 		423014F5233E4D3E00F94B1C /* TestCounterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCounterEntity.swift; sourceTree = "<group>"; };
 		423014F7233E4D7500F94B1C /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		423014FC233E5C7C00F94B1C /* CounterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterEntity.swift; sourceTree = "<group>"; };
@@ -106,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		420040482354A50C00BECD1D /* counterEdit */ = {
+			isa = PBXGroup;
+			children = (
+				420040492354A55300BECD1D /* CounterEdit.swift */,
+			);
+			path = counterEdit;
+			sourceTree = "<group>";
+		};
 		423014FB233E5C6E00F94B1C /* data */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +198,7 @@
 		424D7513233E414C0051CAB3 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				420040482354A50C00BECD1D /* counterEdit */,
 				4299009D2341BD5B009FADDD /* counterDetail */,
 				424D7519233E4AD50051CAB3 /* counters */,
 			);
@@ -395,6 +406,7 @@
 				424D74E8233E3F680051CAB3 /* ContentView.swift in Sources */,
 				429900A9234230D1009FADDD /* Context.swift in Sources */,
 				423014FF233E615100F94B1C /* CounterModel.swift in Sources */,
+				4200404A2354A55300BECD1D /* CounterEdit.swift in Sources */,
 				424D74E6233E3F680051CAB3 /* counter.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
