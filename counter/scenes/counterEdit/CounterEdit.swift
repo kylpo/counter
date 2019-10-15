@@ -32,6 +32,7 @@ final class CounterEditVM: ObservableObject {
         }
     }
     
+    // TODO: not currently getting changed color if something else changes it. Use Publisher()?
     @Published var selectedColorIndex: Int {
         didSet { counter.color = colors[selectedColorIndex] }
     }
